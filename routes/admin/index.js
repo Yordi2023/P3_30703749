@@ -16,9 +16,6 @@ router.get('/', (req, res) => {                 //Obteniendo la ruta principal p
     }else{                                      //De lo contrario
         db.getProducts()                        //Ir a la página en dónde se mostrará una tabla con los productos almacenados en db
         .then(data => {        
-            imgur.delete('6lF6kdf', function (err,_res) {
-                console.log(_res.data);
-            });
             res.render('admin/index', { products: data });              ///Pasando los productos al index.ejs del admin
         })
         .catch(err => {
@@ -88,7 +85,7 @@ router.post('/upload', (req, res)=>{
     }
 
     let sampleFile = req.files.sampleFile;
-    let uploadPath = __dirname + '../../../public/images/' + sampleFile.name;
+    let uploadPath = __dirname + '/../../../public/images/' + sampleFile.name;
     sampleFile.mv(uploadPath, (err) => {
         if (err) {
             return res.status(500).send(err);
