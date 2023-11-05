@@ -104,22 +104,20 @@
     <div class="container">
         <% products.forEach(product => { %>
             <div class="row">
+            <% images.forEach(image => { %>
             <div class="col">
                 <div class="p1">
                     <div class="form-group">
-                        <label class="col-form-label mt-4" for="inputDefault"><%= product.name %></label>
-                        <div class="images">
-                            <% images.forEach(image => { %>
+                        <h1><%= product.name %></h1>
+                        <div class="images">                            
                                 <% if (product.id == image.product_id) { %>
-                                    <img src="<%= image.url %>" alt="" srcset="">
-                                <% } else { %>
-                                    <h3>No tiene imagen</h3>
-                                <% } %>
-                            <% }); %>
+                                    <img src="<%= image.url %>" width="175" height="175">
+                                <% } %>                          
                         </div>
                     </div>
                 </div>
             </div>
+            <% }); %>
         </div>
         <% }); %>
     </div>

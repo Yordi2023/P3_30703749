@@ -61,8 +61,7 @@ router.post('/add', (req, res)=>{
                 console.log('File uploaded!');
                 console.log(_res.data.link);
                 db.insertImage(_res.data.link, id, false)
-                .then(()=>{
-                    fs.unlinkSync(uploadPath);   
+                .then(()=>{                    
                     res.redirect('/admin')             
                 })
                 .catch(_err => {
@@ -76,6 +75,7 @@ router.post('/add', (req, res)=>{
             console.log(err);
             res.redirect('/admin')
         });
+    fs.unlinkSync(uploadPath);   
 });
 
 router.post('/delete/:id', (req, res)=>{
