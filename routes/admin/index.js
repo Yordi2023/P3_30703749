@@ -91,6 +91,7 @@ router.post('/upload', (req, res)=>{
             return res.status(500).send(err);
         }
         imgur.upload(uploadPath, (err, _res) => {
+            console.log('File uploaded!');
             console.log(_res.data.link);
             db.insertImage(_res.data.link, null, false)
             .then(()=>{
@@ -101,7 +102,7 @@ router.post('/upload', (req, res)=>{
                 res.redirect('/admin')
             });
         });
-        
+        fs.unlinkSync(uploadPath);
         /* imgur.upload('http://25.media.tumblr.com/tumblr_md1yfw1Dcz1rsx19no1_1280.png', function (err,res) {
         console.log(res.data.link);
         });
