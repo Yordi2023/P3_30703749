@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S&S - Login</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/login.css">
+</head>
+<body>
+    <%- include('tags/navbar-login.ejs') %>
+    <main id="main-login" style="display: flex;">
+    <form action="admin/login" method="post">
+        <div class="form-group">
+        <h1>Iniciar sesion</h1>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="user" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Usuario</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" name="pass" id="floatingPassword" placeholder="Contraseña" autocomplete="off">
+            <label for="floatingPassword">Contraseña</label>
+        </div>
+        <input type="submit" class="btn btn-light" value="Iniciar">
+        </div>
+    </form>
+    </main>
+</body>
+</html>

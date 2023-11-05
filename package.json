@@ -1,16 +1,24 @@
 {
   "name": "p3-30703749",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
+    "dev": "nodemon *",
     "start": "node ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^16.3.1",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "express-fileupload": "^1.4.2",
     "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
+    "imgur-node-api": "^0.1.0",
+    "morgan": "~1.9.1",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }

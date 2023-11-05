@@ -1,0 +1,53 @@
+<div class="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Detalles del producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/admin/" method="post" class="modal-form">
+          <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="model">Modelo</label>
+            <input type="text" class="form-control" id="model" name="model" required>
+          </div>
+          <div class="form-group">
+            <label for="description">Descripción</label>
+            <textarea class="form-control" id="description" name="description" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="price">Precio</label>
+            <input type="text" class="form-control" id="price" name="price" required>
+          </div>
+          <div class="form-group">
+            <label for="count">Cantidad</label>
+            <input type="text" class="form-control" id="count" name="count" required>
+          </div>
+          <div class="form-group">
+                <label class="col-form-label mt-4" for="inputDefault">Categoría del producto</label>
+                <select id="category_id" name="category_id">
+                    <option value="1">Cuerpo</option>
+                    <option value="2">Manos</option>
+                    <option value="3">Cara</option>
+                    <option value="4">Piernas</option>
+                </select>
+            </div>  
+            <div class="form-group">
+                <label for="count">Código del producto</label>
+                <input type="text" class="form-control" id="code" name="code" required>
+            </div>      
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Guardar cambios</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>

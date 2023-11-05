@@ -1,0 +1,27 @@
+#main-login {
+  width: 100%;
+  height: 80vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#main-login form {
+  width: 400px;
+  height: 50vh;
+  background-color: var(--bs-body-color);
+  padding: 5px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#main-login h1 {
+  text-align: center;
+  color: white;
+}
+
+#main-login input {
+    margin-bottom: 10px;
+}

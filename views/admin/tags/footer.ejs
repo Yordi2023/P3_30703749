@@ -1,0 +1,63 @@
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; S&S 2023</p></div>
+        </footer>
+        <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/imagekit-javascript/dist/imagekit.min.js"></script>
+        <script src="/javascripts/scripts.js"></script>
+        <script>
+    /*  
+    SDK initialization
+    */
+    var imagekit = new ImageKit({
+        publicKey : "public_EP6yM66KZZfg0fVUAz27dXM/WbY=",
+        urlEndpoint : "https://ik.imagekit.io/ol5lgwt7n",
+    });
+    
+    // Upload function internally uses the ImageKit.io javascript SDK
+    function upload(data) {
+        var file = document.getElementById("file1");
+
+        // Using Callback Function
+        imagekit.upload({
+            file: file.files[0],
+            fileName: "abc1.jpg",
+            tags: ["tag1"],
+            token: 'generated_token',
+            signature: 'generated_signature',
+            expire: 'generated_expire',
+            extensions: [
+                {
+                    name: "aws-auto-tagging",
+                    minConfidence: 80,
+                    maxTags: 10
+                }
+            ]
+        }, function(err, result) {
+            console.log(result);
+        })
+
+        // Using Promises
+        imagekit.upload({
+            file: file.files[0],
+            fileName: "abc1.jpg",
+            tags: ["tag1"],
+            token: 'generated_token',
+            signature: 'generated_signature',
+            expire: 'generated_expire',
+            extensions: [
+                {
+                    name: "aws-auto-tagging",
+                    minConfidence: 80,
+                    maxTags: 10
+                }
+            ]
+        }).then(result => {
+            console.log(result);
+        }).then(error => {
+            console.log(error);
+        })
+    }
+</script>
+    </body>
+</html>
