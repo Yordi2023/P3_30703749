@@ -15,11 +15,17 @@ router.get('/', (req, res) => {                 //Obteniendo la ruta principal p
         res.render('admin/login');              //Si no, ir a logearse
     }else{                                      //De lo contrario
         db.getProducts()                        //Ir a la página en dónde se mostrará una tabla con los productos almacenados en db
-        .then(data => {        
-            res.render('admin/index', { products: data });              ///Pasando los productos al index.ejs del admin
+        .then(data => {       
+            db.getImages()
+            .then(images => {
+                res.render('admin/index', { products: data, images: images });              ///Pasando los productos y las imagenes al index.ejs del admin
+            })
+            .catch(err => {
+                res.render('admin/index', { products: data, images: []});              ///Pasando los productos al index.ejs del admin sin iagenes
+            }) 
         })
         .catch(err => {
-            res.render('admin/index', { products: [] });                //Si hubo error, cargar la página pero sin datos
+            res.render('admin/index', { products: [], images: []});                //Si hubo error, cargar la página pero sin datos
         });
     }
 });
@@ -39,14 +45,37 @@ router.post('/login', (req, res) =>{                                    //Recibi
 
 router.post('/add', (req, res)=>{
     const {code, name, model, description, price, count, category_id} = req.body;
+    if(!req.files){
+        return res.status(400).send('No files were uploaded.');
+    }
+    let sampleFile = req.files.sampleFile;
+    let uploadPath = __dirname + '/' + sampleFile.name;
+
     db.insertProduct(code, name, model, description, price, count, category_id)
-    .then(()=>{
-        res.redirect('/admin')
-    })
-    .catch(err => {
-        console.log(err);
-        res.redirect('/admin')
-    })
+        .then((id)=>{
+            sampleFile.mv(uploadPath, (err) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            imgur.upload(uploadPath, (_err, _res) => {
+                console.log('File uploaded!');
+                console.log(_res.data.link);
+                db.insertImage(_res.data.link, id, false)
+                .then(()=>{
+                    fs.unlinkSync(uploadPath);   
+                    res.redirect('/admin')             
+                })
+                .catch(_err => {
+                    console.log(_err);
+                    res.redirect('/admin')
+                });
+                });
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.redirect('/admin')
+        });
 });
 
 router.post('/delete/:id', (req, res)=>{
@@ -106,9 +135,7 @@ router.post('/upload', (req, res)=>{
         /* imgur.upload('http://25.media.tumblr.com/tumblr_md1yfw1Dcz1rsx19no1_1280.png', function (err,res) {
         console.log(res.data.link);
         });
-        
-        
-        
+  
         imgur.update({
         id: 'W0JfyHW',
         title: 'My Title',

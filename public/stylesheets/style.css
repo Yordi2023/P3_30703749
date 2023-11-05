@@ -10890,6 +10890,10 @@ td div {
   align-items: center;
 }
 
+.add {
+  border: 4px dashed gray;
+}
+
 .add .container {
   display: flex;
   flex-direction: row;
@@ -10914,6 +10918,10 @@ td div {
   align-items: center;
   width: 42%;
   color: white; 
+}
+
+.add .container .p2 .manageI {
+  height: 80vh;
 }
 
 .modal {

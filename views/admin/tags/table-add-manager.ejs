@@ -46,7 +46,7 @@
 
 <!--ADD-->
 
-<form action="admin/add" method="post" class="add dropzone">
+<form action="admin/add" method="post" class="add" enctype="multipart/form-data">
     <div class="container">
         <div class="p1">
             <div class="form-group">
@@ -84,7 +84,8 @@
             </div>
         </div>
         <div class="p2">
-            <input type="file" name="file" />
+            <label class="col-form-label mt-4" for="inputDefault">Imagen del producto</label>
+            <input class="btn btn-lg btn-primary" type="file" name="sampleFile" class="manageI" required>
         </div>
     </div>
     <div>
@@ -100,6 +101,28 @@
         <input class="btn btn-lg btn-primary" type="file" name="sampleFile">
         <input class="btn btn-success" type="submit" value="Subir">
     </form>
+    <div class="container">
+        <% products.forEach(product => { %>
+            <div class="row">
+            <div class="col">
+                <div class="p1">
+                    <div class="form-group">
+                        <label class="col-form-label mt-4" for="inputDefault"><%= product.name %></label>
+                        <div class="images">
+                            <% images.forEach(image => { %>
+                                <% if (product.id == image.product_id) { %>
+                                    <img src="<%= image.url %>" alt="" srcset="">
+                                <% } else { %>
+                                    <h3>No tiene imagen</h3>
+                                <% } %>
+                            <% }); %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+    </div>
 </form>
 </div>
 

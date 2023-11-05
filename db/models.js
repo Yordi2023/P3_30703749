@@ -58,7 +58,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             db.run(querys.insertProduct, [code, name, model, description, price, count, category_id], (err) => {
                 if(err) reject(err);
-                resolve();
+                resolve(this.lastID);
             })
         })
     },
