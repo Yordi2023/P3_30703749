@@ -85,7 +85,7 @@ router.post('/upload', (req, res)=>{
     }
 
     let sampleFile = req.files.sampleFile;
-    let uploadPath = __dirname + '/' sampleFile.name;
+    let uploadPath = __dirname + '/' + sampleFile.name;
     sampleFile.mv(uploadPath, (err) => {
         if (err) {
             return res.status(500).send(err);
