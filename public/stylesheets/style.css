@@ -10929,6 +10929,17 @@ td div {
   flex-direction: column;
 }
 
+.manage-images form {
+  border: 4px dashed gray;
+  display: flex;
+  flex-direction: column;
+}
+
+.manage-images form input[type="file"]{
+  height: 50vh;
+
+}
+
 .manage-categories{
   display: none;
   height: 95vh;
