@@ -1,3 +1,4 @@
+/****/
 //Manejador de rutas para el administración, es independiente de las otras rutas que se vayan a crear
 const express = require('express');             //Importando express
 const router = express.Router();                //Usando el método router
@@ -43,44 +44,22 @@ router.post('/login', (req, res) =>{                                    //Recibi
     }
 });
 
-router.post('/add', (req, res)=>{
-    const {code, name, model, description, price, count, category_id} = req.body;
-    if(!req.files){
-        return res.status(400).send('No files were uploaded.');
-    }
-    let sampleFile = req.files.sampleFile;
-    let uploadPath = __dirname + '/' + sampleFile.name;
+router.post('/add', (req, res)=>{                                               //Recibiendo los datos enviados desde el add por POST
+    const {code, name, model, description, price, count, category_id, image} = req.body;   //Capturando los datos
 
-    db.insertProduct(code, name, model, description, price, count, category_id)
+    db.insertProduct(code, name, model, description, price, count, category_id, image) //Insertando los datos
         .then((id)=>{
-            sampleFile.mv(uploadPath, (err) => {
-            if (err) {
-                return res.status(500).send(err);
-            }
-            imgur.upload(uploadPath, (_err, _res) => {
-                console.log('File uploaded!');
-                console.log(_res.data.link);
-                db.insertImage(_res.data.link, id, false)
-                .then(()=>{                    
-                    res.redirect('/admin')             
-                })
-                .catch(_err => {
-                    console.log(_err);
-                    res.redirect('/admin')
-                });
-                });
-            });
+            res.redirect('/admin')
         })
-        .catch(err => {
+        .catch(err => {             
             console.log(err);
             res.redirect('/admin')
         });
-    fs.unlinkSync(uploadPath);   
 });
 
-router.post('/delete/:id', (req, res)=>{
-    const id = req.params.id;
-    db.deleteProduct(id)
+router.post('/delete/:id', (req, res)=>{    //Recibiendo los datos enviados desde el delete por POST
+    const id = req.params.id;           //Capturando el id
+    db.deleteProduct(id)                //Borrando el producto
     .then(()=>{
         res.redirect('/admin')
     })
@@ -90,7 +69,7 @@ router.post('/delete/:id', (req, res)=>{
     });
 });
 
-router.post('/update/:id', (req, res)=>{
+router.post('/update/:id', (req, res)=>{            //Recibiendo los datos enviados desde el update por POST
     const id = req.params.id;
     const {code, name, model, description, price, count, category_id} = req.body;
     db.updateProduct(code, name, model, description, price, count, category_id, id)
@@ -103,12 +82,12 @@ router.post('/update/:id', (req, res)=>{
     });
 });
 
-router.post('/logout', (req, res)=>{
-    logged = false;
+router.post('/logout', (req, res)=>{    //Recibiendo los datos enviados desde el logout por POST
+    logged = false;                     //Si todo bien, es true y redirecciona a la página del admin
     res.redirect('/admin')
 })
 
-router.post('/upload', (req, res)=>{
+router.post('/upload', (req, res)=>{        //Recibiendo los datos enviados desde el upload por POST
     if(!req.files){
         return res.status(400).send('No files were uploaded.');
     }

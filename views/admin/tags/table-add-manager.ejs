@@ -84,8 +84,21 @@
             </div>
         </div>
         <div class="p2">
-            <label class="col-form-label mt-4" for="inputDefault">Imagen del producto</label>
-            <input class="btn btn-lg btn-primary" type="file" name="sampleFile" class="manageI" required>
+            <h1 class="text-black" >Imagen del producto</h1>
+            <div class="containerImages">
+                <% if(images.length > 0) { %>
+                <% images.forEach(image => { %>
+                <div class="image" id="<%= image.id %>">
+                    <img src="<%= image.url %>" alt="Imagen">
+                </div>
+                <% }); %>
+                <% } else { %>
+                <div class="image">
+                    <h1>No hay imágenes</h1>
+                </div>
+                <% } %>
+            </div>
+            <input type="hidden" name="image" id="inputImage" value="0">
         </div>
     </div>
     <div>
@@ -101,24 +114,20 @@
         <input class="btn btn-lg btn-primary" type="file" name="sampleFile">
         <input class="btn btn-success" type="submit" value="Subir">
     </form>
-    <div class="container">
+    <div class="containerImage">
         <% products.forEach(product => { %>
-            <div class="row">
-            <% images.forEach(image => { %>
-            <div class="col">
-                <div class="p1">
-                    <div class="form-group">
-                        <h1><%= product.name %></h1>
-                        <div class="images">                            
-                                <% if (product.id == image.product_id) { %>
-                                    <img src="<%= image.url %>" width="175" height="175">
-                                <% } %>                          
-                        </div>
-                    </div>
-                </div>
+            <div class="image mImg">
+                <p><%= product.name %></p>
+                <% if(product.image_id != 0) { %>
+                <% images.forEach(image => { %>
+                    <% if(image.id == product.image_id) { %>
+                            <img src="<%= image.url %>" alt="Imagen">
+                    <% } %>
+                   <% }); %>
+                <% } else { %>
+                    <img src="images/none.jpg" alt="Imagen">
+                <% } %>
             </div>
-            <% }); %>
-        </div>
         <% }); %>
     </div>
 </form>

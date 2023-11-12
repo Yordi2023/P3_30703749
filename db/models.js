@@ -5,7 +5,7 @@ let querys = {
     getProductID: 'SELECT * FROM products WHERE id = ?',
     getImages: 'SELECT * FROM images',
     getCategories: 'SELECT * FROM categories',
-    insertProduct: 'INSERT INTO products (code, name, model, description, price, count, category_id) VALUES(?, ?, ?, ?, ?, ?, ?)',
+    insertProduct: 'INSERT INTO products (code, name, model, description, price, count, category_id, image_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?)',
     insertImage: 'INSERT INTO images (url, product_id, outstanding) VALUES(?, ?, ?)',
     updateProduct: 'UPDATE products SET code = ?, name = ?, model = ?, description = ?, price = ?, count = ?, category_id = ? WHERE id = ?',
     updateImage: 'UPDATE images SET url = ?, product_id = ?, outstanding = ? WHERE id = ?',
@@ -54,9 +54,9 @@ module.exports = {
             })
         })
     },    
-    insertProduct(code, name, model, description, price, count, category_id){
+    insertProduct(code, name, model, description, price, count, category_id, image_id){
         return new Promise((resolve, reject) => {
-            db.run(querys.insertProduct, [code, name, model, description, price, count, category_id], (err) => {
+            db.run(querys.insertProduct, [code, name, model, description, price, count, category_id, image_id], (err) => {
                 if(err) reject(err);
                 resolve(this.lastID);
             })

@@ -14,6 +14,9 @@ const textareaDescription = document.querySelector('#description');
 const inputPrice = document.querySelector('#price');
 const inputCount = document.querySelector('#count');
 const selectCategory = document.querySelector('#category_id');
+const selectImage = document.querySelector('.containerImages');
+const inputImage = document.querySelector('#inputImage');
+let imageBefore;
 let id;
 
 //Bontón del menú para saber si mostrar la tabla o es para agregar
@@ -93,7 +96,22 @@ modal.addEventListener('click', (e) => {
             modalForm.submit()
         }
     }
-})
+});
+
+selectImage.addEventListener('click', (e) => {
+   if(e.target && e.target.tagName === 'IMG'){
+       inputImage.value = e.target.parentElement.id;
+       if(!imageBefore){
+        imageBefore = e.target;    
+        e.target.classList.toggle("selected");   
+       }else{        
+        imageBefore = imageBefore;
+        imageBefore.classList.remove("selected");
+        e.target.classList.toggle("selected");
+        imageBefore = e.target;
+       }
+   }
+});
 
 function Change(option){
     if(option == 'view'){
