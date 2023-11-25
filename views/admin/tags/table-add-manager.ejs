@@ -117,6 +117,8 @@
                 <% images.forEach(image => { %>
                     <% if(image.id == product.image_id) { %>
                             <img src="<%= image.url %>" alt="Imagen" id="<%= image.id %>">
+                    <% } else { %>
+                        <img src="<%= image.url %>" alt="Imagen" id="<%= image.id %>">
                     <% } %>
                    <% }); %>
                 <% } else { %>
