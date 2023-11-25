@@ -94,7 +94,7 @@
                 <% }); %>
                 <% } else { %>
                 <div class="image">
-                    <h1>No hay imágenes</h1>
+                    <h5>No hay imágenes</h5>
                 </div>
                 <% } %>
             </div>
@@ -108,29 +108,28 @@
 
 <!--MANAGE IMAGES-->
 <div class="manage-images">
-    <h2>Gestor de imágenes</h2>
-
-    <form ref="uploadForm" action="admin/upload" method="post" id="uploadForm" class="dropzone" enctype="multipart/form-data">
-        <input class="btn btn-lg btn-primary" type="file" name="sampleFile">
-        <input class="btn btn-success" type="submit" value="Subir">
-    </form>
-    <div class="containerImage">
+    <h1>Gestor de imágenes</h1>
+    <div class="containerImage">                
         <% products.forEach(product => { %>
             <div class="image mImg">
-                <p><%= product.name %></p>
+                <div><p><%= product.name %></p><a class="deleteImage" href="admin/delete-image/" id="<%= product.id %>">X</a></div>
                 <% if(product.image_id != 0) { %>
                 <% images.forEach(image => { %>
                     <% if(image.id == product.image_id) { %>
-                            <img src="<%= image.url %>" alt="Imagen">
+                            <img src="<%= image.url %>" alt="Imagen" id="<%= image.id %>">
                     <% } %>
                    <% }); %>
                 <% } else { %>
-                    <img src="images/none.jpg" alt="Imagen">
+                    <img src="images/none.jpg" alt="Imagen" id="<%= product.image_id %>">
                 <% } %>
             </div>
         <% }); %>
     </div>
-</form>
+    <form ref="uploadForm" action="admin/upload" method="post" id="uploadForm" class="dropzone" enctype="multipart/form-data">
+        <h3>Agregar una imagen</h3>
+        <input class="btn btn-lg btn-primary" type="file" name="sampleFile">
+        <input class="btn btn-success" type="submit" value="Subir">
+    </form>
 </div>
 
 <!--MANAGE CATEGORIES-->

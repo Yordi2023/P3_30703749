@@ -16,6 +16,7 @@ const inputCount = document.querySelector('#count');
 const selectCategory = document.querySelector('#category_id');
 const selectImage = document.querySelector('.containerImages');
 const inputImage = document.querySelector('#inputImage');
+const deleteImage = document.querySelector('.deleteImage');
 let imageBefore;
 let id;
 
@@ -136,3 +137,7 @@ function Change(option){
         manageCategories.style.display = 'flex';
     }
 }
+
+deleteImage.addEventListener('click', (e) => {
+    deleteImage.href += deleteImage.id + '/' + e.target.parentElement.parentElement.children[1].id;
+});

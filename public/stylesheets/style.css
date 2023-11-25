@@ -10916,7 +10916,6 @@ td div {
 }
 
 .add .container .p2 {
-  width: 42%;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -10956,17 +10955,34 @@ td div {
   flex-direction: column;
 }
 
-
 .containerImages {
     display: flex;
     flex-wrap: wrap;
     height: 100%;
-    background-color: lightgray;
-    border-radius: 20px;
+    /*background-color: lightgray;*/
+    /*border-radius: 20px;*/
     padding: 5px;
     gap: 10px;
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
     overflow: auto;
+    margin-bottom: 50px;
+    background-color: #212529;
+    color: white;
+    border-radius: 10px;
+}
+
+
+.containerImage {
+  display: flex;
+    /* overflow: auto; */
+    margin-bottom: 50px;
+    background-color: #212529;
+    color: white;
+    height: none;
+    border-radius: 10px;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .image {
@@ -10976,6 +10992,7 @@ td div {
   background-color: greenyellow;
   overflow: hidden;
   border: dashed 1px black;
+  color:black;
 }
 
 .selected{
@@ -10997,14 +11014,42 @@ td div {
 
 .mImg {
   background-color: white; 
-  height: 200px; 
-  width: 200px; 
+  height: 180px; 
+  width: 180px; 
   font-size: 20px; 
   display: flex; 
   flex-direction: column; 
   overflow: hidden; 
   justify-content: flex-start; 
   align-items: center;
+}
+
+.mImg div {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+
+.mImg div a {
+    padding: 2px;
+    font-size: 15px;
+    text-decoration: none;
+    background: #ff2424;
+    height: 25px;
+    width: 25px;
+    text-align: center;
+    border-radius: 50%;
+    color: white;
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+
+
+.mImg:hover div a {
+  opacity: 1;
+  transition: all 1s ease;
 }
 
 @media (max-width: 700px) {
@@ -11025,4 +11070,34 @@ td div {
     .add .container .p1 {
       width: 100%;
     }
+
+    .mImg{
+      height: 80px;
+      width: 80px;
+      font-size: 10px;
+    }
+
+    p{
+      margin: 0;
+    }
+
+    .image {
+      border-radius: 5px;
+    }
+
+    .image img {
+      width: 50px;
+      height: 80px;    
+    }
 }
+
+/*Mientras escuchabas musica XD
+
+
+    
+
+  Esto es para container.image el que esta en el gestor de imagenes,
+  usaras JS para algo creo, o no XD. Solo acomoda las imagenes luego haz
+  la vista publica.
+
+*/

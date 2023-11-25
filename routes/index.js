@@ -1,3 +1,4 @@
+//Controlador de la ruta de vista pública
 const express = require('express');
 const router = express.Router();
 const db = require('../db/models');

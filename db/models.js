@@ -10,6 +10,7 @@ let querys = {
     updateProduct: 'UPDATE products SET code = ?, name = ?, model = ?, description = ?, price = ?, count = ?, category_id = ? WHERE id = ?',
     updateImage: 'UPDATE images SET url = ?, product_id = ?, outstanding = ? WHERE id = ?',
     deleteProduct: 'DELETE FROM products WHERE id = ?',
+    deleteImageproduct: 'UPDATE products SET image_id = 0 WHERE id = ?',
     deleteImage: 'DELETE FROM images WHERE id = ?'
 };
 
@@ -81,6 +82,14 @@ module.exports = {
     deleteProduct(id){
         return new Promise((resolve, reject) => {
             db.run(querys.deleteProduct, [id], (err) => {
+                if(err) reject(err);
+                resolve();
+            })
+        })
+    },
+    deleteImageProduct(id){
+        return new Promise((resolve, reject) => {
+            db.run(querys.deleteImageproduct, [id], (err) => {
                 if(err) reject(err);
                 resolve();
             })

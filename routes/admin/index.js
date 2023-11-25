@@ -69,6 +69,27 @@ router.post('/delete/:id', (req, res)=>{    //Recibiendo los datos enviados desd
     });
 });
 
+router.get('/delete-image/:idp/:idi', (req, res)=>{    //Recibiendo los datos enviados desde el delete por POST
+    const idp = req.params.idp;           //Capturando el id del producto
+    const idi = req.params.idi;           //Capturando el id de la imagen
+    db.deleteImageProduct(idp)
+    .then(()=>{
+        db.deleteImage(idi)                //Borrando la imagen
+        .then(()=>{
+            res.redirect('/admin')
+        })
+        .catch(err => {
+            console.log(err);
+            res.redirect('/admin')
+        });
+    })
+    .catch(err => {
+        console.log(err);
+        res.redirect('/admin')
+    })
+    
+});
+
 router.post('/update/:id', (req, res)=>{            //Recibiendo los datos enviados desde el update por POST
     const id = req.params.id;
     const {code, name, model, description, price, count, category_id} = req.body;
