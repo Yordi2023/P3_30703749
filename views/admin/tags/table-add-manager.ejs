@@ -110,20 +110,10 @@
 <div class="manage-images">
     <h1>Gestor de imágenes</h1>
     <div class="containerImage">                
-        <% products.forEach(product => { %>
+        <% images.forEach(image => { %>
             <div class="image mImg">
-                <div><p><%= product.name %></p><a class="deleteImage" href="admin/delete-image/" id="<%= product.id %>">X</a></div>
-                <% if(product.image_id != 0) { %>
-                <% images.forEach(image => { %>
-                    <% if(image.id == product.image_id) { %>
-                            <img src="<%= image.url %>" alt="Imagen" id="<%= image.id %>">
-                    <% } else { %>
-                        <img src="<%= image.url %>" alt="Imagen" id="<%= image.id %>">
-                    <% } %>
-                   <% }); %>
-                <% } else { %>
-                    <img src="images/none.jpg" alt="Imagen" id="<%= product.image_id %>">
-                <% } %>
+                <a href="admin/delete-image/<%= image.id %>">X</a>                                            
+                <img src="<%= image.url %>" alt="Imagen" id="<%= image.id %>">     
             </div>
         <% }); %>
     </div>
@@ -133,7 +123,6 @@
         <input class="btn btn-success" type="submit" value="Subir">
     </form>
 </div>
-
 <!--MANAGE CATEGORIES-->
 <div class="manage-categories">
     <h2>Gestor de categorías</h2>

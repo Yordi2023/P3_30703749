@@ -10,7 +10,7 @@ let querys = {
     updateProduct: 'UPDATE products SET code = ?, name = ?, model = ?, description = ?, price = ?, count = ?, category_id = ? WHERE id = ?',
     updateImage: 'UPDATE images SET url = ?, product_id = ?, outstanding = ? WHERE id = ?',
     deleteProduct: 'DELETE FROM products WHERE id = ?',
-    deleteImageproduct: 'UPDATE products SET image_id = 0 WHERE id = ?',
+    deleteImageproduct: 'UPDATE products SET image_id = 0 WHERE image_id = ?',
     deleteImage: 'DELETE FROM images WHERE id = ?'
 };
 

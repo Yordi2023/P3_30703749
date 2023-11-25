@@ -4,14 +4,20 @@ const router = express.Router();
 const db = require('../db/models');
 
 router.get('/', (req, res) => {
-    /*db.getProducts()
-    .then(data => {        
-        res.render('index', { products: data });
+    db.getProducts()
+    .then(data => {  
+        db.getImages()
+        .then(images => {
+            res.render('index', { products: data, images: images });
+        })
+        .catch(err => {
+            res.render('index', { products: data, images: [] });
+        })     
     })
     .catch(err => {
-        res.render('index', { products: [] });
-    })*/
-  res.redirect('/admin');
+        console.log(err);
+        res.render('index', { products: [], images: []});
+    })
 });
 
 module.exports = router;

@@ -69,12 +69,11 @@ router.post('/delete/:id', (req, res)=>{    //Recibiendo los datos enviados desd
     });
 });
 
-router.get('/delete-image/:idp/:idi', (req, res)=>{    //Recibiendo los datos enviados desde el delete por POST
-    const idp = req.params.idp;           //Capturando el id del producto
-    const idi = req.params.idi;           //Capturando el id de la imagen
-    db.deleteImageProduct(idp)
+router.get('/delete-image/:id', (req, res)=>{    //Recibiendo los datos enviados desde el delete por POST
+    const id = req.params.id;           //Capturando el id de la imagen
+    db.deleteImageProduct(id)
     .then(()=>{
-        db.deleteImage(idi)                //Borrando la imagen
+        db.deleteImage(id)                //Borrando la imagen
         .then(()=>{
             res.redirect('/admin')
         })

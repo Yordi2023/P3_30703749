@@ -139,5 +139,5 @@ function Change(option){
 }
 
 deleteImage.addEventListener('click', (e) => {
-    deleteImage.href += deleteImage.id + '/' + e.target.parentElement.parentElement.children[1].id;
+    deleteImage.href += e.target.parentElement.parentElement.children[1].id;
 });

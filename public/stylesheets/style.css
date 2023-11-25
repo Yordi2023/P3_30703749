@@ -11024,15 +11024,10 @@ td div {
   align-items: center;
 }
 
-.mImg div {
-  display: flex;
-  gap: 10px;
-  flex-direction: row;
-  flex-wrap: nowrap;
-}
 
 
-.mImg div a {
+
+.mImg a {
     padding: 2px;
     font-size: 15px;
     text-decoration: none;
@@ -11044,10 +11039,11 @@ td div {
     color: white;
     opacity: 0;
     transition: all 0.2s ease;
+    z-index: 2;
 }
 
 
-.mImg:hover div a {
+.mImg:hover a {
   opacity: 1;
   transition: all 1s ease;
 }
