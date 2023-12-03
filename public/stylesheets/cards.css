@@ -11,3 +11,13 @@ main {
     width: 240px;
     height: 300px;
 }
+
+.list {
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+}

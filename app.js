@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const fileUpload = require('express-fileupload')//Importando express-fileupload
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const usersRouter = require('./routes/user/index');
 
 //creando ruta para el admin
 const adminRouter = require('./routes/admin/index');
