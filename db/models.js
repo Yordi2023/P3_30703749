@@ -11,10 +11,23 @@ let querys = {
     updateImage: 'UPDATE images SET url = ?, product_id = ?, outstanding = ? WHERE id = ?',
     deleteProduct: 'DELETE FROM products WHERE id = ?',
     deleteImageproduct: 'UPDATE products SET image_id = 0 WHERE image_id = ?',
-    deleteImage: 'DELETE FROM images WHERE id = ?'
+    deleteImage: 'DELETE FROM images WHERE id = ?',
+    getClientView: 'SELECT products.*, clients.*, ventas.*, ventas.cantidad FROM productos JOIN ventas ON products.id = ventas.product_id JOIN clients ON clients.id = ventas.cliente_id;',
+    getPayment: 'SELECT p.*, i.* FROM products p JOIN images i ON p.id = i.id WHERE p.id = ?'
 };
 
 module.exports = {
+
+    getPayment(id){
+        return new Promise((resolve,reject) => {
+            db.get(querys.getPayment,[id],(err,rows) => {
+                if(err) reject(err);
+                resolve(rows);
+            })
+        })
+    },
+
+
     getProducts(){
         return new Promise((resolve, reject) => {
             db.all(querys.getProducts, (err, rows) => {
@@ -92,6 +105,14 @@ module.exports = {
             db.run(querys.deleteImageproduct, [id], (err) => {
                 if(err) reject(err);
                 resolve();
+            })
+        })
+    },
+
+    getClientView(){
+        return new Promise((resolve,reject) => {
+            db.all(querys.getClientView(),(err,row)=> {
+                resolve(row)
             })
         })
     },

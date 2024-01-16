@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S&S - Home</title>
+    <link rel="stylesheet" href="/stylesheets/cards.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <div style="display: flex; gap: 10px;">
+                <a class="navbar-brand" href="#!">
+                    <div class="loge">S</i><sub>&</sub><i>S</i></div>
+                </a>
+                <button class="btn-link" id="ordenar">Listar</button>
+                <form action="/" method="post" class="d-flex">
+                    <input name="name" class="form-control me-sm-2" type="search"
+                        placeholder="Nombre completo del producto">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Filtrar</button>
+                </form>
+            </div>
+            <form action="#" method="post" class="d-flex">
+                <button class="btn btn-outline-dark" type="submit">
+                    <i class="bi bi-person-fill-gear"></i>
+                    Iniciar Sesión
+                </button>
+            </form>
+        </div>
+        </div>
+    </nav>
+    <header class="bg-dark py-5 banner">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder"></h1>
+
+            </div>
+        </div>
+    </header>
+    <main class="container-products" style="display: block;">
+        <form action="/pay/<%= product.id %>" style="display:flex; flex-wrap: wrap; gap: 20px; justify-content: center;" method="POST">
+            <div class="card mb-3">
+                <div>
+                    <h3 class="card-header" style="word-break: break-all; overflow: hidden;">
+                        <%= product.name %>
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= product.model %>
+                    </h5>
+                    <h6 class="card-subtitle text-muted">
+                        <%= product.description %>
+                    </h6>
+                </div>
+
+                <img src="<%= image.url %>" alt="Imagen" id="<%= image.id %>" width="100%">
+
+                <div class="card-footer text-muted" style="display: flex; justify-content: space-around;">
+
+                </div>
+
+            </div>
+
+
+            <div class="card" style="border-radius: 15px; width: 330px;">
+                <div class="card-body p-4">
+  
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="form-outline">
+                                <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
+                                    placeholder="1234 5678 9012 3457" minlength="16" maxlength="16" name="tarjeta" required/>
+                                <label class="form-label" for="typeText">Card Number</label>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center pb-1">
+                            <div class="form-outline">
+                                <input type="password" id="typeText2" class="form-control form-control-lg"
+                                    placeholder="&#9679;&#9679;&#9679;" size="1" minlength="2" maxlength="2" required name="mes"/>
+                                <label class="form-label" for="typeText2">Mes</label>
+
+                            </div>
+                            <div class="form-outline">
+                                <input type="password" id="typeText2" class="form-control form-control-lg"
+                                    placeholder="&#9679;&#9679;&#9679;" size="1" minlength="4" maxlength="4" name="ano" required/>
+                                <label class="form-label" for="typeText2">Año</label>
+
+                            </div>
+                            <div class="form-outline">
+                                <input type="password" id="typeText2" class="form-control form-control-lg"
+                                    placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" name="cvv"  maxlength="3" />
+                                <label class="form-label" for="typeText2">Cvv</label>
+
+                            </div>
+                            
+                        </div>
+                        <h5 class="card-title">
+                           Precio:  <%= product.price %>$
+                        </h5>
+                        <h5>
+                           Unidades: <%= cantidad %>
+                        </h5>
+                        <h5>
+                            Total a pagar: <%= totalapagar%>$
+                        </h5>
+                        <input type="hidden" name="total" value="<%= totalapagar %>">
+                        <input type="hidden" name="cantidad" value="<%= cantidad  %>">
+                        <button class="btn btn-info btn-lg btn-rounded" style="color: white; width: 100%;">
+                            <i class="fas fa-arrow-right">Payment</i>
+                        </button>
+                    
+                </div>
+            </div>
+        </form>
+    </main>
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; S&S 2023</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/javascripts/scripts.js"></script>
+    <script src="/javascripts/listar.js"></script>
+</body>
+
+</html>

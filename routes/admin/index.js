@@ -35,7 +35,7 @@ router.get('/', (req, res) => {                 //Obteniendo la ruta principal p
 
 router.post('/login', (req, res) =>{                                    //Recibiendo los datos enviados desde el login por POST
     const {user, pass} = req.body;                                      //Capturando el user y el pass
-    if(user == process.env.USER_ADMIN && pass == process.env.PASS_ADMIN){       //Validando
+    if(user == 'admin' && pass == 'admin'){       //Validando
         logged = true;                                          //Si todo bien, es true y redirecciona a la página del admin
         res.redirect('/admin')
     }else{

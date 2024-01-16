@@ -20,7 +20,7 @@
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Filtrar</button>
             </form>
         </div>
-            <form action="/login" method="post" class="d-flex">
+            <form action="#" method="post" class="d-flex">
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi bi-person-fill-gear"></i>
                     Iniciar Sesión
@@ -37,7 +37,6 @@
                 </div>
             </div>
         </header>
-
     <main class="container-products grid">
         <% products.forEach(product=> { %>
     
@@ -65,16 +64,13 @@
                                         <% } else { %>
                                             <div>Sin imagen</div>
                                             <% } %>
-                                                <div class="card-footer"
-                                                    style="display: flex; justify-content: center; flex-direction: column;">
-                                                    <p>Precio: <%= product.price %>$</p>
-                                                    <form action="/payment/<%= product.id %>" method="POST">
-                                                        <input type="number" style="margin-bottom: 9px;" name="cantidad" placeholder="Escriba la cantidad a comprar" required> 
+                                                <div class="card-footer text-muted"
+                                                    style="display: flex; justify-content: space-around;">
                                                     <div>
-                                                        <button class="btn btn-success">Comprar</button>
+                                                        <%= product.price %>$
                                                     </div>
-                                                </form>
                                                 </div>
+                        
             </div>
     
             <% }) %>
