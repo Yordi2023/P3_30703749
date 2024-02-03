@@ -195,8 +195,8 @@ router.post('/pay/:id', async (req, res) => {
             if (tokenAuthorized) {
                 req.user = tokenAuthorized.id;
                 
-                db.inertBuy(cliente_id, id, cantidad, total, fechaC, ipPaymentClient)
-                    .thern(()=> return next())
+                db.insertBuy(cliente_id, id, cantidad, total, fechaC, ipPaymentClient)
+                    .thern(()=> {return next();})
                 return next();
             }
         });
