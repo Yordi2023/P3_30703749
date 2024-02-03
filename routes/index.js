@@ -3,8 +3,8 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db/models');
 const jwt = require('jsonwebtoken');
-const fetch = require('fetch');
-rutabloqueada = async (req, res, next) => {
+
+const rutabloqueada = async (req, res, next) => {
     if (req.cookies.jwt) {
         try {
             const tokenAuthorized = await promisify(jwt.verify)(req.cookies.jwt, 'token');
@@ -22,7 +22,7 @@ rutabloqueada = async (req, res, next) => {
 };
 
 
-rutaloginbloqueada = async (req, res, next) => {
+const rutaloginbloqueada = async (req, res, next) => {
     if (req.cookies.jwt) {
         try {
             const tokenAuthorized = await promisify(jwt.verify)(req.cookies.jwt, 'token');
