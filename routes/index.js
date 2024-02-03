@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db/models');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 
 rutabloqueada = (req, res, next) => {
     if (req.cookies.jwt) {
@@ -98,6 +99,29 @@ router.post('/registerclient', async (req, res) => {
      db.insertUser(email, password, address, country)
         .then(()=>{
             console.log("Registrado",email, password, address, country)
+
+            const transporter = nodemailer.createTransport({
+            host: process.env.HOST,
+            port: 465,
+            secure: true,
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.PASS
+            }
+          });
+          const mailOptions = {
+            from: process.env.useremail,
+            to: [email],
+            subject: 'Registro Completado en S&S',
+            text: "Se ha registrado exitosamente"
+          };
+          transporter.sendMail(mailOptions, (error, info)=>{
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Correo electrónico enviado: ' + info.response);
+            }});
+            
             res.redirect('/');
         })
          .catch((err)=>{
