@@ -18,6 +18,7 @@
     "imgur-node-api": "^0.1.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "~1.9.1",
+    "nodemailer": "^6.9.9",
     "sqlite3": "^5.1.6"
   },
   "devDependencies": {
