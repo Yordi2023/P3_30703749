@@ -152,5 +152,13 @@ module.exports = {
                  resolve()
         })
     })
-}
+},
+recoveryPass(email){
+    return new Promise((resolve, reject)=>{
+            db.all('SELECT * FROM clients WHERE email = ?', [email], (err, row)=>{
+                if(err) {reject(err);}
+                console.log(email, row);
+                resolve(row);
+            });
+        });
 }
