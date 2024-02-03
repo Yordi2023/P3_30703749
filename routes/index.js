@@ -68,7 +68,7 @@ router.get('/registerclient', (req, res) => {
     });
 })
 
-router.post('/loginclient', rutaloginbloqueada, async (req, res) => {
+router.post('/loginclient', async (req, res) => {
     const { email, password } = req.body;
     db.getUser(email, password)
         .then((data) => {
