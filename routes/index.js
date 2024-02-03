@@ -91,15 +91,15 @@ router.post('/registerclient', async (req, res) => {
     const captcha = await url.json();
     if (captcha.success == true) {
         db.getUser(email, password)
-            .then(()=>{
-                res.redirect('/registerclient')
-            })
-            .catch(()=>{
-                db.insertUser(email, password, address, country)
+            .then((data)=>{
+                if(data) res.redirect('/registerclient')
+                else {
+                 db.insertUser(email, password, address, country)
                     .then(()=>{
                         res.redirect('/loginclient');
+                    });
+                }
             })
-        })
     } else {
         res.status(500).send('¡No se verifico el captcha!');
     }
