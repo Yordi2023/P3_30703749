@@ -41,7 +41,7 @@ rutaloginbloqueada = async (req, res, next) => {
 };
 
 
-router.get('/', rutaloginbloqueada, (req, res) => {
+router.get('/', (req, res) => {
     db.getProducts()
         .then(data => {
             db.getImages()
