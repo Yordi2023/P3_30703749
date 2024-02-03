@@ -100,7 +100,7 @@ router.post('/registerclient', async (req, res) => {
         })
          .catch((err)=>{
              console.log("Error", err)
-             res.redirect('/registerclient'));
+             res.redirect('/registerclient');
         });
 
     } else {
