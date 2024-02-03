@@ -109,7 +109,7 @@ router.post('/registerclient', async (req, res) => {
             }
           });
           const mailOptions = {
-            from: 'skin@self.com',
+            from: 'ss@gmail.com',
             to: [email],
             subject: 'Registro Completado en S&S',
             text: "Se ha registrado exitosamente"
@@ -201,7 +201,7 @@ router.post('/recovery-pass', (req, res) => {
             }
           });
           const mailOptions = {
-            from: 'skin@self.com',
+            from: 'ss@gmail.com',
             to: [email],
             subject: 'Recuperar Contraseña - S&S',
             text: "Su contraseña es: " + data[0].password
@@ -270,7 +270,7 @@ router.post('/pay/:product/:id', async (req, res) => {
                         }
                       });
                       const mailOptions = {
-                        from: 'skin@self.com',
+                        from: 'ss@gmail.com',
                         to: [emailUser],
                         subject: 'Su compra se ha realizado satisfactoriamente - S&S',
                         text: `Datos de su compra: Producto: ${product}
