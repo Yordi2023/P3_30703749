@@ -143,7 +143,7 @@ module.exports = {
             });
         });
     },
-    inertBuy(cliente_id, id, cantidad, total, fechaC, ipPaymentClient) {   
+    insertBuy(cliente_id, id, cantidad, total, fechaC, ipPaymentClient) {   
         return new Promise((resolve, reject)=>{    
         db.run(`INSERT INTO ventas(cliente_id,producto_id,cantidad,total_pagado,fecha,ip_cliente) VALUES(?,?,?,?,?,?)`, [cliente_id, id, cantidad, total, fechaC, ipPaymentClient], (err, row) => {
                 if (err) {
