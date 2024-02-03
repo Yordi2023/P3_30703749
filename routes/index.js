@@ -260,32 +260,36 @@ router.post('/pay/:product/:id', async (req, res) => {
                 db.insertBuy(tokenAuthorized.id, id, cantidad, total, fechaC, ipPaymentClient)
                     .then(()=> {
                         
-                        db.getUserID(tokenAuthorized.id).then((user) =>{console.log("Email:", user); emailUser = user[0].email});
-                        const transporter = nodemailer.createTransport({
-                        host: process.env.HOST,
-                        port: 587,
-                        auth: {
-                            user: process.env.EMAIL,
-                            pass: process.env.PASS
-                        }
-                      });
-                      const mailOptions = {
-                        from: 'ss@gmail.com',
-                        to: [emailUser],
-                        subject: 'Su compra se ha realizado satisfactoriamente - S&S',
-                        text: `Datos de su compra: Producto: ${product}
-                        Cantidad: ${cantidad}
-                        Fecha de compra: ${fechaC}
-                        Total de la compra: ${total}$`
-                      };
-                      transporter.sendMail(mailOptions, function(error, info){
-                        if (error) {
-                            console.log(error);
-                        } else {
-                           console.log('Correo electrónico enviado a: ' + email + ' ' + info.response);
-                        }});
+                        db.getUserID(tokenAuthorized.id).then((user) =>{
+                            console.log("Email:", user); 
+                            emailUser = user[0].email;
+                            const transporter = nodemailer.createTransport({
+                            host: process.env.HOST,
+                            port: 587,
+                            auth: {
+                                user: process.env.EMAIL,
+                                pass: process.env.PASS
+                            }
+                          });
+                          const mailOptions = {
+                            from: 'ss@gmail.com',
+                            to: [emailUser],
+                            subject: 'Su compra se ha realizado satisfactoriamente - S&S',
+                            text: `Datos de su compra: Producto: ${product}
+                            Cantidad: ${cantidad}
+                            Fecha de compra: ${fechaC}
+                            Total de la compra: ${total}$`
+                          };
+                          transporter.sendMail(mailOptions, function(error, info){
+                            if (error) {
+                                console.log(error);
+                            } else {
+                               console.log('Correo electrónico enviado a: ' + email + ' ' + info.response);
+                            }
+                          });
+                        });
                         res.redirect('/')
-                    })
+                    });
             }
         });
         } else {
