@@ -56,8 +56,6 @@ router.get('/', rutaloginbloqueada, (req, res) => {
         })
 });
 
-
-
 router.get('/loginclient', (req, res) => {
     res.render('loginclient.ejs')
 })
