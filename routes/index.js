@@ -110,7 +110,7 @@ router.post('/registerclient', async (req, res) => {
           });
           const mailOptions = {
             from: 'skin@self.com',
-            to: email,
+            to: [email],
             subject: 'Registro Completado en S&S',
             text: "Se ha registrado exitosamente"
           };
@@ -202,7 +202,7 @@ router.post('/recovery-pass', (req, res) => {
           });
           const mailOptions = {
             from: 'skin@self.com',
-            to: email,
+            to: [email],
             subject: 'Recuperar Contraseña - S&S',
             text: "Su contraseña es: " + data[0].password
           };
@@ -249,7 +249,7 @@ router.post('/pay/:product/:id', async (req, res) => {
         });
         const jsonData = await response.json();
         if (req.cookies.jwt) {
-        jwt.verify(req.cookies.jwt, 'token', (error, tokenAuthorized) => {
+        jwt.verify(req.cookies.jwt, 'token', async (error, tokenAuthorized) => {
             if (error) {
                 console.log(error);
             }
@@ -258,6 +258,8 @@ router.post('/pay/:product/:id', async (req, res) => {
                 console.log(tokenAuthorized.id, id, cantidad, total, fechaC, ipPaymentClient)
                 db.insertBuy(tokenAuthorized.id, id, cantidad, total, fechaC, ipPaymentClient)
                     .then(()=> {
+                        let emailUser;
+                        db.getUserID(tokenAuthorized.id).then((user) =>{ emailUser = user[0].email});
                         const transporter = nodemailer.createTransport({
                         host: process.env.HOST,
                         port: 587,
@@ -268,7 +270,7 @@ router.post('/pay/:product/:id', async (req, res) => {
                       });
                       const mailOptions = {
                         from: 'skin@self.com',
-                        to: email,
+                        to: emailUser,
                         subject: 'Su compra se ha realizado satisfactoriamente - S&S',
                         text: `Datos de su compra: Producto: ${product}
                         Cantidad: ${cantidad}
