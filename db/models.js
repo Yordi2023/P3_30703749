@@ -133,9 +133,11 @@ module.exports = {
             });
     },
     insertUser(email, password, addres, country){
+        return new Promise((resolve, reject) => {
         db.run(`INSERT INTO clients(email,password,address,country) VALUES(?,?,?,?)`, [email, password, address, country], (err) => {
             if(err) reject(err);
                 resolve();
+            });
         });
     }
 }
