@@ -127,7 +127,7 @@ module.exports = {
     
     getUser(email, password){
         return new Promise((resolve, reject)=>{
-            db.run(`SELECT * FROM clients WHERE email = ? AND password = ?`, [email, password], (err, row)=>{
+            db.all('SELECT **FROM clients WHERE email = ? AND password = ?', [email, password], (err, row)=>{
                 if(err) {reject(err);}
                 console.log(email, password, row);
                 resolve(row);
