@@ -74,7 +74,7 @@ router.post('/loginclient', rutaloginbloqueada, async (req, res) => {
         .then((data) => {
             console.log(data);
             
-            const id = data.id;
+            const id = data[0].id;
             const token = jwt.sign({ id: id }, 'token');
             res.cookie("jwt", token);
             res.redirect('/');
