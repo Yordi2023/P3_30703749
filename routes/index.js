@@ -36,12 +36,12 @@ rutaloginbloqueada = async (req, res, next) => {
             }
         });
     } else {
-        res.redirect("/loginclient");
+        res.redirect("/");
     }
 };
 
 
-router.get('/', rutaloginbloqueada, (req, res) => {
+router.get('/', rutabloqueada, (req, res) => {
     db.getProducts()
         .then(data => {
             db.getImages()
