@@ -4,37 +4,39 @@ const router = express.Router();
 const db = require('../db/models');
 const jwt = require('jsonwebtoken');
 
-rutabloqueada = async (req, res, next) => {
+rutabloqueada = (req, res, next) => {
     if (req.cookies.jwt) {
-        try {
-            const tokenAuthorized = await promisify(jwt.verify)(req.cookies.jwt, 'token');
-            if (tokenAuthorized) {
+        jwt.verify(req.cookies.jwt, 'token', (error, tokenAuthorized) => {
+            if (error) {
+                console.log(error);
                 return next();
             }
-            req.user = row.id;
-        } catch (error) {
-            console.log(error);
-            return next();
-        }
+            if (tokenAuthorized) {
+                req.user = tokenAuthorized.id;
+                return next();
+            }
+        });
     } else {
         res.redirect("/loginclient");
     }
 };
 
 
+
 rutaloginbloqueada = async (req, res, next) => {
     if (req.cookies.jwt) {
-        try {
-            const tokenAuthorized = await promisify(jwt.verify)(req.cookies.jwt, 'token');
-            if (tokenAuthorized) {
-                res.redirect("/");
+        jwt.verify(req.cookies.jwt, 'token', (error, tokenAuthorized) => {
+            if (error) {
+                console.log(error);
+                return next();
             }
-        } catch (error) {
-            console.log(error);
-            res.redirect("/");
-        }
+            if (tokenAuthorized) {
+                req.user = tokenAuthorized.id;
+                return next();
+            }
+        });
     } else {
-        return next();
+        res.redirect("/");
     }
 };
 
