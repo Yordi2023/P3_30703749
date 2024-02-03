@@ -123,5 +123,19 @@ module.exports = {
                 resolve();
             })
         })
+    },
+    
+    getUser(email, password){
+        return new Promise((resolve, reject)=>{
+            db.run(`SELECT * FROM clients WHERE email = ? AND password = ?`, [email, password], (err, row)=>{
+                if(err) reject(err);
+                resolve(row);
+            });
+    },
+    insertUser(email, password, addres, country){
+        db.run(`INSERT INTO clients(email,password,address,country) VALUES(?,?,?,?)`, [email, password, address, country], (err) => {
+            if(err) reject(err);
+                resolve();
+        });
     }
 }
