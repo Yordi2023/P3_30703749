@@ -102,16 +102,15 @@ router.post('/registerclient', async (req, res) => {
 
             const transporter = nodemailer.createTransport({
             host: process.env.HOST,
-            port: 465,
-            secure: true,
+            port: 587,
             auth: {
                 user: process.env.EMAIL,
                 pass: process.env.PASS
             }
           });
           const mailOptions = {
-            from: process.env.useremail,
-            to: [email],
+            from: process.env.EMAIL,
+            to: email,
             subject: 'Registro Completado en S&S',
             text: "Se ha registrado exitosamente"
           };
@@ -182,11 +181,48 @@ router.post('/payment/:id', rutabloqueada, async (req, res) => {
 })
 
 
+router.get('/recovery-pass', (req, res) => {
+ 
+  res.render('recovery-pass')
+
+})
+
+router.post('/recovery-pass', (req, res) => {
+  const email = req.body.email; 
+    db.recoveryPass(email)
+        .then((data) => {
+            const transporter = nodemailer.createTransport({
+            host: process.env.HOST,
+            port: 587,
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.PASS
+            }
+          });
+          const mailOptions = {
+            from: process.env.EMAIL,
+            to: email,
+            subject: 'Recuperar Contraseña - S&S',
+            text: "Su contraseña es: " + data[0].password
+          };
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Correo electrónico enviado: ' + info.response);
+            }});
+        })
+        .catch((err)=>{
+            console.log(err);
+            res.redirect('/');
+        });
+
+    res.redirect('/loginclient');
+});
 
 
-
-router.post('/pay/:id', async (req, res) => {
-    const { id } = req.params;
+router.post('/pay/:product/:id', async (req, res) => {
+    const { product, id } = req.params;
     const { tarjeta, cvv, mes, ano, cantidad, total } = req.body;
     const fecha = new Date();
     const fechaC = fecha.toString();
@@ -221,6 +257,29 @@ router.post('/pay/:id', async (req, res) => {
                 console.log(tokenAuthorized.id, id, cantidad, total, fechaC, ipPaymentClient)
                 db.insertBuy(tokenAuthorized.id, id, cantidad, total, fechaC, ipPaymentClient)
                     .then(()=> {
+                        const transporter = nodemailer.createTransport({
+                        host: process.env.HOST,
+                        port: 587,
+                        auth: {
+                            user: process.env.EMAIL,
+                            pass: process.env.PASS
+                        }
+                      });
+                      const mailOptions = {
+                        from: process.env.EMAIL,
+                        to: email,
+                        subject: 'Su compra se ha realizado satisfactoriamente - S&S',
+                        text: `Datos de su compra: Producto: ${product}
+                        Cantidad: ${cantidad}
+                        Fecha de compra: ${fechaC}
+                        Total de la compra: ${total}$`
+                      };
+                      transporter.sendMail(mailOptions, function(error, info){
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log('Correo electrónico enviado: ' + info.response);
+                        }});
                         res.redirect('/')
                     })
             }
