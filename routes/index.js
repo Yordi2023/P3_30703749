@@ -70,13 +70,14 @@ router.post('/loginclient', rutaloginbloqueada, async (req, res) => {
     const { email, password } = req.body;
     db.getUser(email, password)
         .then((data) => {
-        
+            console.log(data);
+            
             const id = data.id;
-            console.log(data)
             const token = jwt.sign({ id: id }, 'token');
             res.cookie("jwt", token);
             res.redirect('/');
-    }).catch(()=>res.redirect('/loginclient'));
+    })
+    .catch(()=>res.redirect('/loginclient'));
 });
 
 router.post('/registerclient', async (req, res) => {
