@@ -118,7 +118,7 @@ router.post('/registerclient', async (req, res) => {
             if (error) {
                 console.log(error);
             } else {
-                console.log('Correo electrónico enviado: ' + info.response);
+                console.log('Correo electrónico enviado a: ' + email +' ' + info.response);
             }
           });
             
@@ -210,7 +210,7 @@ router.post('/recovery-pass', (req, res) => {
             if (error) {
                 console.log(error);
             } else {
-                console.log('Correo electrónico enviado: ' + info.response);
+                console.log('Correo electrónico enviado a: ' + email + ' ' + info.response);
             }});
         })
         .catch((err)=>{
@@ -225,6 +225,7 @@ router.post('/recovery-pass', (req, res) => {
 router.post('/pay/:product/:id', async (req, res) => {
     const { product, id } = req.params;
     const { tarjeta, cvv, mes, ano, cantidad, total } = req.body;
+    let emailUser;
     const fecha = new Date();
     const fechaC = fecha.toString();
     const ipPaymentClient = (req.headers['x-forwarded-for'] || '').split(',')[0] || req.connection.remoteAddress;
@@ -258,8 +259,8 @@ router.post('/pay/:product/:id', async (req, res) => {
                 console.log(tokenAuthorized.id, id, cantidad, total, fechaC, ipPaymentClient)
                 db.insertBuy(tokenAuthorized.id, id, cantidad, total, fechaC, ipPaymentClient)
                     .then(()=> {
-                        let emailUser;
-                        db.getUserID(tokenAuthorized.id).then((user) =>{ emailUser = user[0].email});
+                        
+                        db.getUserID(tokenAuthorized.id).then((user) =>{console.log("Email:", user); emailUser = user[0].email});
                         const transporter = nodemailer.createTransport({
                         host: process.env.HOST,
                         port: 587,
@@ -281,7 +282,7 @@ router.post('/pay/:product/:id', async (req, res) => {
                         if (error) {
                             console.log(error);
                         } else {
-                            console.log('Correo electrónico enviado: ' + info.response);
+                           console.log('Correo electrónico enviado a: ' + email + ' ' + info.response);
                         }});
                         res.redirect('/')
                     })
