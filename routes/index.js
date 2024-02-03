@@ -85,7 +85,7 @@ router.post('/loginclient', rutaloginbloqueada, async (req, res) => {
 
 router.post('/registerclient', async (req, res) => {
     const { email, password, address, country } = req.body;
-    const key = process.KEYPRIVATE;
+    const key = process.env.KEYPRIVATE;
     const gRecaptchaResponse = req.body['g-recaptcha-response'];
     const url = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${key}&response=${gRecaptchaResponse}`, {
         method: 'POST',
