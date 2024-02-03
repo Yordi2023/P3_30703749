@@ -109,7 +109,7 @@ router.post('/registerclient', async (req, res) => {
             }
           });
           const mailOptions = {
-            from: process.env.EMAIL,
+            from: 'skin@self.com',
             to: email,
             subject: 'Registro Completado en S&S',
             text: "Se ha registrado exitosamente"
@@ -119,7 +119,8 @@ router.post('/registerclient', async (req, res) => {
                 console.log(error);
             } else {
                 console.log('Correo electrónico enviado: ' + info.response);
-            }});
+            }
+          });
             
             res.redirect('/');
         })
@@ -165,8 +166,8 @@ router.post('/login', (req, res) => {
 })
 
 
-router.post('/payment/:id', rutabloqueada, async (req, res) => {
-    const { id } = req.params;
+router.post('/payment/:product/:id', rutabloqueada, async (req, res) => {
+    const { product, id } = req.params;
     const { cantidad } = req.body;
     db.getPayment(id)
         .then(data => {
@@ -200,7 +201,7 @@ router.post('/recovery-pass', (req, res) => {
             }
           });
           const mailOptions = {
-            from: process.env.EMAIL,
+            from: 'skin@self.com',
             to: email,
             subject: 'Recuperar Contraseña - S&S',
             text: "Su contraseña es: " + data[0].password
@@ -266,7 +267,7 @@ router.post('/pay/:product/:id', async (req, res) => {
                         }
                       });
                       const mailOptions = {
-                        from: process.env.EMAIL,
+                        from: 'skin@self.com',
                         to: email,
                         subject: 'Su compra se ha realizado satisfactoriamente - S&S',
                         text: `Datos de su compra: Producto: ${product}
