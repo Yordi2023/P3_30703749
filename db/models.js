@@ -134,6 +134,15 @@ module.exports = {
             });
         });
     },
+    
+    getUserID(id){
+        return new Promise((resolve, reject)=>{
+            db.all('SELECT * FROM clients WHERE id = ?', [id], (err, row)=>{
+                if(err) {reject(err);}
+                resolve(row);
+            });
+        });
+    },
     insertUser(email, password, address, country){
         return new Promise((resolve, reject) => {
         db.run(`INSERT INTO clients(email,password,address,country) VALUES(?,?,?,?)`, [email, password, address, country], (err) => {
