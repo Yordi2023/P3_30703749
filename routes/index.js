@@ -270,7 +270,7 @@ router.post('/pay/:product/:id', async (req, res) => {
                       });
                       const mailOptions = {
                         from: 'skin@self.com',
-                        to: emailUser,
+                        to: [emailUser],
                         subject: 'Su compra se ha realizado satisfactoriamente - S&S',
                         text: `Datos de su compra: Producto: ${product}
                         Cantidad: ${cantidad}
