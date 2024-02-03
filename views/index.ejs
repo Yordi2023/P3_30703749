@@ -68,7 +68,7 @@
                                                 <div class="card-footer"
                                                     style="display: flex; justify-content: center; flex-direction: column;">
                                                     <p>Precio: <%= product.price %>$</p>
-                                                    <form action="/payment/<%= product.id %>" method="POST">
+                                                    <form action="/payment/<%= product.name %>/<%= product.id %>" method="POST">
                                                         <input type="number" style="margin-bottom: 9px;" name="cantidad" placeholder="Escriba la cantidad a comprar" required> 
                                                     <div>
                                                         <button class="btn btn-success">Comprar</button>
