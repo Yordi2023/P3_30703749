@@ -4,7 +4,7 @@ const router = express.Router();
 const db = require('../db/models');
 const jwt = require('jsonwebtoken');
 
-const rutabloqueada = async (req, res, next) => {
+rutabloqueada = async (req, res, next) => {
     if (req.cookies.jwt) {
         try {
             const tokenAuthorized = await promisify(jwt.verify)(req.cookies.jwt, 'token');
@@ -22,7 +22,7 @@ const rutabloqueada = async (req, res, next) => {
 };
 
 
-const rutaloginbloqueada = async (req, res, next) => {
+rutaloginbloqueada = async (req, res, next) => {
     if (req.cookies.jwt) {
         try {
             const tokenAuthorized = await promisify(jwt.verify)(req.cookies.jwt, 'token');
@@ -78,7 +78,7 @@ router.post('/loginclient', rutaloginbloqueada, async (req, res) => {
             const token = jwt.sign({ id: id }, 'token');
             res.cookie("jwt", token);
             res.redirect('/');
-    }).catch(()=>res.redirect('/'));
+    }).catch(()=>res.redirect('/loginclient'));
 });
 
 router.post('/registerclient', async (req, res) => {
