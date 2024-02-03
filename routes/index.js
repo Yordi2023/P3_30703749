@@ -77,7 +77,10 @@ router.post('/loginclient', rutaloginbloqueada, async (req, res) => {
             res.cookie("jwt", token);
             res.redirect('/');
     })
-    .catch(()=>res.redirect('/loginclient'));
+    .catch((err)=>{
+        console.log(err);
+        res.redirect('/loginclient');
+    });
 });
 
 router.post('/registerclient', async (req, res) => {
@@ -92,7 +95,12 @@ router.post('/registerclient', async (req, res) => {
 
      db.insertUser(email, password, address, country)
         .then(()=>{
+            console.log("Registrado",email, password, address, country)
             res.redirect('/');
+        })
+         .catch((err)=>{
+             console.log("Error", err)
+             res.redirect('/registerclient'));
         });
 
     } else {
