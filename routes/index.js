@@ -196,8 +196,9 @@ router.post('/pay/:id', async (req, res) => {
                 req.user = tokenAuthorized.id;
                 console.log(tokenAuthorized.id, id, cantidad, total, fechaC, ipPaymentClient)
                 db.insertBuy(tokenAuthorized.id, id, cantidad, total, fechaC, ipPaymentClient)
-                    .then(()=> {return next();})
-                return next();
+                    .then(()=> {
+                        res.redirect('/')
+                    })
             }
         });
         } else {
