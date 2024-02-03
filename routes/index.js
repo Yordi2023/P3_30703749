@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db/models');
 const jwt = require('jsonwebtoken');
+const fetch = require('fetch');
 rutabloqueada = async (req, res, next) => {
     if (req.cookies.jwt) {
         try {
@@ -69,18 +70,15 @@ router.get('/registerclient', (req, res) => {
 
 router.post('/loginclient', rutaloginbloqueada, async (req, res) => {
     const { email, password } = req.body;
-    db.get(`SELECT * FROM clients WHERE email = ? AND password = ?`, [email, password], (err, row) => {
-        if (row) {
-            const id = row.id;
-            console.log(row)
+    db.getUser(email, password)
+        .then((data) => {
+        
+            const id = data.id;
+            console.log(data)
             const token = jwt.sign({ id: id }, 'token');
             res.cookie("jwt", token);
             res.redirect('/');
-        }
-        else {
-            res.redirect('/loginclient');
-        }
-    })
+    }).catch(()=>res.redirect('/'));
 });
 
 router.post('/registerclient', async (req, res) => {
@@ -92,18 +90,15 @@ router.post('/registerclient', async (req, res) => {
     });
     const captcha = await url.json();
     if (captcha.success == true) {
-        db.get(`SELECT * FROM clients WHERE email = ?`, [email], (err, row) => {
-            if (row) {
+        db.getUser(email, password)
+            .then(()=>{
                 res.redirect('/registerclient')
-            } else {
-                db.get(`INSERT INTO clients(email,password,address,country) VALUES(?,?,?,?)`, [email, password, address, country], (err, rows) => {
-                    if (err) {
-                        console.log(err)
-                    } else {
+            })
+            .catch(()=>{
+                db.insertUser(email, password, address, country)
+                    .then(()=>{
                         res.redirect('/loginclient');
-                    }
-                })
-            }
+            })
         })
     } else {
         res.status(500).send('¡No se verifico el captcha!');
