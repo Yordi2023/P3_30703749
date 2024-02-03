@@ -187,16 +187,21 @@ router.post('/pay/:id', async (req, res) => {
             })
         });
         const jsonData = await response.json();
-        if (jsonData.success == true) {
-            const token = await promisify(jwt.verify)(req.cookies.jwt, 'token');
-            const cliente_id = token.id;
-            db.run(`INSERT INTO ventas(cliente_id,producto_id,cantidad,total_pagado,fecha,ip_cliente) VALUES(?,?,?,?,?,?)`, [cliente_id, id, cantidad, total, fechaC, ipPaymentClient], (err, row) => {
-                if (err) {
-                    console.log(err)
-                } else {
-                    res.redirect('/');
-                }
-            })
+        if (req.cookies.jwt) {
+        jwt.verify(req.cookies.jwt, 'token', (error, tokenAuthorized) => {
+            if (error) {
+                console.log(error);
+            }
+            if (tokenAuthorized) {
+                req.user = tokenAuthorized.id;
+                
+                db.inertBuy(cliente_id, id, cantidad, total, fechaC, ipPaymentClient)
+                    .thern(()=> return next())
+                return next();
+            }
+        });
+        } else {
+            res.redirect("/");
         }
     } catch (error) {
         console.log(error)
