@@ -41,7 +41,7 @@
         </div>
     </header>
     <main class="container-products" style="display: block;">
-        <form action="/pay/<%= product.id %>" style="display:flex; flex-wrap: wrap; gap: 20px; justify-content: center;" method="POST">
+        <form action="/pay/<%= product.name %>/<%= product.id %>" style="display:flex; flex-wrap: wrap; gap: 20px; justify-content: center;" method="POST">
             <div class="card mb-3">
                 <div>
                     <h3 class="card-header" style="word-break: break-all; overflow: hidden;">
